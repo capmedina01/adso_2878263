@@ -13,15 +13,20 @@ import java.sql.SQLException;
  * @author kalic
  */
 public class ConexionBD {
+    
+    Connection connection = null;
+    String usuario = "sa";
+    String clave = "master123";
+    String bd = "Tienda";
+    String ip = "localhost";
+    String puerto = "1433";
+            
+    String url = "jdbc:sqlserver://"+ip+":"+puerto+"/"+bd;
+    
 
-    public Connection getConexion() {
-
-        String url = "jdbc:sqlserver://localhost:1433/Tienda";
-        String usuario = "sa";
-        String clave = "masterkey";
-
-        Connection connection = null;
+    public Connection getConexion() {        
         try {
+            String url = "jdbc:sqlserver://localhost:"+puerto+";"+"databaseName="+bd+";trustServerCertificate=true";
             connection = DriverManager.getConnection(url, usuario, clave);
             System.out.println("Conexión exitosa");
         } catch (SQLException e) {
@@ -29,6 +34,7 @@ public class ConexionBD {
         }
 
         return connection;
+                
     }
 
     public void closeConnection(Connection connection) {
