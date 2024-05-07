@@ -72,6 +72,10 @@ public class CategoriaController {
         List<Categoria> categorias = categoriaDAO.leerCategoria();
         CategoriaView.mostrarCategorias(categorias);
     }
+    
+    public void llamarLeerCategoria(){
+        leerCategoria();
+    }
 
     private void actualizarCategoria() {
         leerCategoria();

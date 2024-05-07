@@ -6,6 +6,7 @@ package Controllers;
 
 import Models.Producto;
 import Views.ProductoView;
+import dao.CategoriaDAO;
 import dao.ProductoDAO;
 import java.util.List;
 import java.util.Scanner;
@@ -17,10 +18,12 @@ import java.util.Scanner;
 public class ProductoController {
     
     private ProductoDAO productoDAO;
+    private CategoriaController categoriaController;
     private Scanner scanner;
     
     public ProductoController(){
         productoDAO = new ProductoDAO();
+        categoriaController = new CategoriaController();
         scanner = new Scanner(System.in);    
     }
     
@@ -39,6 +42,7 @@ public class ProductoController {
 
             switch (opcion) {
                 case 1:
+                    categoriaController.llamarLeerCategoria();
                     crearProducto();
                     break;
                 case 2:
@@ -64,7 +68,7 @@ public class ProductoController {
         String nombre = scanner.nextLine();
         System.out.print("Ingrese el precio del producto: ");
         double precio = scanner.nextDouble();
-        System.out.print("\nIngrese el ID de la categoria que desea actualizar: ");
+        System.out.print("\nIngrese la categoria ");
         int categoriaId = scanner.nextInt();
         Producto producto = new Producto(0, nombre, precio,categoriaId);
         productoDAO.crearProducto(producto);
