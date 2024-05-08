@@ -4,6 +4,7 @@
  */
 package Controllers;
 
+import Models.Categoria;
 import Models.Producto;
 import Views.ProductoView;
 import dao.CategoriaDAO;
@@ -18,12 +19,12 @@ import java.util.Scanner;
 public class ProductoController {
     
     private ProductoDAO productoDAO;
-    private CategoriaController categoriaController;
+    private CategoriaDAO categoriaDAO;
     private Scanner scanner;
     
     public ProductoController(){
         productoDAO = new ProductoDAO();
-        categoriaController = new CategoriaController();
+        categoriaDAO = new CategoriaDAO();
         scanner = new Scanner(System.in);    
     }
     
@@ -42,7 +43,7 @@ public class ProductoController {
 
             switch (opcion) {
                 case 1:
-                    categoriaController.llamarLeerCategoria();
+                    
                     crearProducto();
                     break;
                 case 2:
@@ -69,6 +70,11 @@ public class ProductoController {
         System.out.print("Ingrese el precio del producto: ");
         double precio = scanner.nextDouble();
         System.out.print("\nIngrese la categoria ");
+        List<Categoria> categorias = categoriaDAO.leerCategoria();
+        for (int i=0;i<categorias.size();i++){
+            Categoria categoria = categorias.get(i);
+           System.out.println((i + 1) + ". ID: " + categoria.getCategoriaID() + ", Nombre: " + categoria.getNombre());
+        }
         int categoriaId = scanner.nextInt();
         Producto producto = new Producto(0, nombre, precio,categoriaId);
         productoDAO.crearProducto(producto);
