@@ -18,9 +18,12 @@ public class ClienteDAO {
     
     public ClienteDAO(){
         conexionBD = new ConexionBD();
-        connection = conexionBD.getConexion();
+        connection = conexionBD.getConexion();   
+    }
     
-    
+    public void crearCliente(Cliente cliente){
+        
+       
     }
     
 }
