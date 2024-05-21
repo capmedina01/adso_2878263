@@ -8,7 +8,11 @@ import Config.ConexionBD;
 import Models.Empleado;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -25,18 +29,38 @@ public class EmpleadoDAO {
         connection = conexionBD.getConexion();
     }
     
-    public void crearEmpleado(Empleado empleado){
+    public void crearEmpleado(Empleado empleado)
+    {
         String sql = "INSERT INTO Empleado (nombre, direccion, telefono, email, cargo) VALUES (?, ?, ?, ?, ?)";
-        try(PreparedStatement statement = connection.prepareStatement(sql)){
+        try(PreparedStatement statement = connection.prepareStatement(sql))
+        {
             statement.setString(1, empleado.getNombre());
             statement.setString(2, empleado.getDireccion());
             statement.setString(3, empleado.getTelefono());
             statement.setString(4, empleado.getEmail());
             
         }
-        catch(SQLException e){
-            System.out.println("Error al crear el empleado " + e.getMessage() );             
+        catch(SQLException e)
+        {
+            System.out.println("Error al crear el empleado " + e.getMessage());             
         }
         
+    }
+    
+    public List<Empleado> listarempleado()
+    {
+        List<Empleado> empleados = new ArrayList<>();
+        String sql = "SELECT * FROM Empleado";
+         try(Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql))
+        {
+            
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Error al listar los empleados " + e.getMessage());  
+        }
+        
+        return empleados;
     }
 }
