@@ -84,7 +84,7 @@ public class ClienteDAO {
         }
         catch(SQLException e)
         {
-            System.out.println("Error al actualizar el cliente " + e.getMessage());
+            System.out.println("Error al actualizar los datos del cliente " + e.getMessage());
         }
     }
     
