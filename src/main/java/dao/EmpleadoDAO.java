@@ -54,7 +54,18 @@ public class EmpleadoDAO {
          try(Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(sql))
         {
-            
+            while(resultSet.next())
+            {
+                int id = resultSet.getInt("empleadoID");
+                String nombre = resultSet.getString("nombre");
+                String direccion = resultSet.getString("direccion");
+                String telefono = resultSet.getString("telefono");
+                String email = resultSet.getString("email");
+                String cargo = resultSet.getString("cargo");
+                
+                Empleado empleado = new Empleado(id, nombre, direccion, telefono, email, cargo);
+                empleados.add(empleado);
+            }            
         }
         catch(SQLException e)
         {
@@ -62,5 +73,42 @@ public class EmpleadoDAO {
         }
         
         return empleados;
+    }
+    
+    public void actualizarEmpleado(Empleado empleado)
+    {
+        String sql = "UPDATE Cliente SET nombre = ?, direccion = ?, telefono = ?, email = ?, cargo = ? WHERE empleadoID = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql))
+        {
+            statement.setString(1, empleado.getNombre());
+            statement.setString(2, empleado.getDireccion());
+            statement.setString(3, empleado.getTelefono());
+            statement.setString(4, empleado.getEmail());
+            statement.setString(5, empleado.getCargo());
+            statement.setInt(6, empleado.getEmpleadoID());
+            statement.executeUpdate();
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Error al actualizar los datos del empleado " + e.getMessage());
+        }
+    }
+    
+    public void eliminarEmpleado(int id)
+    {
+        String sql = "DELETE FROM Empleado WHERE empleadoID = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql))
+        {
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Error al eliminar el registro del empleado" + e.getMessage());
+        }
+        
+    }
+    public void cerrarConexion() {
+        conexionBD.closeConnection(connection);
     }
 }
