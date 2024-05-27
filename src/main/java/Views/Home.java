@@ -27,7 +27,9 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setName("loginFrame"); // NOI18N
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getAccessibleContext().setAccessibleName("loginFrame");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
