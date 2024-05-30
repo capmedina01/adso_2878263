@@ -18,10 +18,6 @@ public class Tienda {
 
     public static void main(String[] args) { 
        
-       CategoriaController categoriaController = new CategoriaController();
-        categoriaController.mostrarMenu();
-        
-        ProductoController productoController = new ProductoController();
-        productoController.mostrarMenu();
+       
     }   
 }
